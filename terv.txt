@@ -1,0 +1,13 @@
+biom_creation -> 576 elemű lista 0,1,2,3 számok felhasználásával
+lelohely_creation -> 576 elemű lista 0,1 számok felhasználásával 
+kockaszam_give_away -> 576 elemű lista 1,2,3,4,5,6 számok felhasználásával
+clamied_base -> 576 elemű lista 0 szám felhasználásával (ez később felűlírható)
+foglalt_base -> 576 elemű lista 0 szám felhasználásával (ez később felűlírható)
+
+keveres -> megkeveri egy lista elemit és visszaadja
+
+matrixhajtogatas -> 24*24*5 elemű matrix ami a fenti listákból épűl (ez lessz a map)
+mapgen -> a fentebbieket teszi agy függvénybe
+divek_letrehozasa -> egy 24*24 -es divmezőt kreál
+divek_szinezes -> a divmezőt a map alapján 
+
