@@ -9,7 +9,6 @@ function keveres(l){ // Fisher-Yates-Knuth shuffle
     }
     return l;
 }
-
 // 24*24 = 576
 function biomok(){ 
     let a = [];
@@ -121,11 +120,112 @@ function randommapgen(){
     let f = matrixhajtogatas(biomokk,lelohelyee,kockaszamm,claimm,foglaltt)
     return f;
 }
-function balkatt(){
-    alert("balkatt!")
+function claimlist()
+{
+    let claims = [];
+    return claims;
 }
-document.addEventListener("DOMContentLoaded", () => {
-    divek_letrehozasa(24,24);
-    let map = randommapgen();
+function claimadd(claimlista,x,y)
+{
+    let chunk = [x,y];
+    console.log(x,y);
+    claimlista.push(chunk);
+}
+function claimkiírás(claimlista)
+{
+    for(const elem of claimlista)
+    {
+        console.log(elem[1]);
+        console.log(elem[2]);
+    }
+}
+function melyikez(div){ // megszerzi egy div koordinátáit (pozícióját a mapon)
+    [sx,sy] = div.id.split(" "); // ["9", "4"]
+    return [parseInt(sx), parseInt(sy)];
+}
+function ezadiv(x,y){ // koordináta (pozíció) alapján megkeres egy divet
+    return document.getElementById(`${x} ${y}`);
+}
+function balkatt(e){
+    let vizsgalt = e.target; 
+    console.log(vizsgalt);
+    [x, y] = melyikez(vizsgalt)
+    // a koordináták kiírása konzolba
+    console.log(x); 
+    console.log(y);
+    console.log(map[x][y]);
+    claimadd(claimlista,x,y)
+}
+function kockadobas()
+{
+    let dobasszam = Math.floor(Math.random() * 6) + 1;
+    return dobasszam;
+}
+function dobaskereses(claimlist,map,dobas)
+{
+    let lehetsegesek = [];
+    for (let i = 0; i < 24; i++) {
+        for (let f = 0; f < 24; f++) {
+            if(map[i][f][2] == dobas)
+            {
+                let koordinatak = [i,f];
+                lehetsegesek.push(koordinatak);
+            }
+        }
+    }
+    let dobottak = [];
+    for (let k = 0; k < claimlist.length; k++) {
+        for (let l = 0; l < lehetsegesek.length; l++) {
+            if(claimlist[k] == lehetsegesek[l])
+            {
+                let kello = claimlist[k]
+                dobottak.push(kello)
+            }
+        }
+    }
+    return dobottak;
+}
+function melyik_nyersanyag_add(biom_, resourcelista)
+{
     
-});
+    if(biom_ == 0)//mező
+    {
+        resourcelista[0]++;
+    }
+    if(biom_ == 1)//erdő
+    {
+        resourcelista[1]++;
+    }
+    if(biom_ == 2)//hegység
+    {
+        resourcelista[2]++;
+    }
+    if(biom_ == 3)//mocsár
+    {
+        resourcelista[3]++;
+    }
+    
+}
+function resourcelist()
+{
+    let resourcelista = [0,0,0,0]
+    return resourcelista;
+}
+function mennyiazannyi(dobottak,map,resourcelista)
+{
+    for (let i = 0; i < dobottak.length; i++) {
+        for (let y = 0; y < 24; y++) {
+            for (let x = 0; x < 24; x++) {
+                if(map[y][x] == dobottak[i])
+                {
+                    melyik_nyersanyag_add(map[y][x][3],resourcelista);
+                }
+            }
+        }
+    }  
+}
+
+divek_letrehozasa(24,24);
+let map = randommapgen();
+let claimlista = claimlist();
+let nyersanyaglista = resourcelist();
