@@ -125,11 +125,12 @@ function claimlist()
     let claims = [];
     return claims;
 }
-function claimadd(claimlista,x,y)
+function claimadd(claimlista,x,y,map)
 {
-    let chunk = [x,y];
-    console.log(x,y);
+    let chunk = [y,x];
+    console.log(y,x);
     claimlista.push(chunk);
+    //map[y][x][3] = 1
 }
 function claimkiírás(claimlista)
 {
@@ -224,6 +225,46 @@ function mennyiazannyi(dobottak,map,resourcelista)
         }
     }  
 }
+function neighbouchek(x,y,r) // amikor egy települést tesz le, ellenörzi, hogy van-e claimelhető terület
+{
+    let valasz = 1;
+// 1*1 út
+// 3*3 falu/város
+// 5*5 főváros
+    if(r==3)
+    {
+        if(x==0||x==24||y==0||y==24)
+        {
+            valasz = 0
+        }
+        // y != 0 V y != 24
+        // x != 0 V x != 24
+    }
+    else if(r==5)
+    {
+        if(x==0||x==1||x==23||x==24||y==0||y==1||y==23||y==24)
+        {
+            valasz = 0
+        }
+        // y != 0,1 V y != 23,24
+        // x != 0,1 V x != 23,24
+    }
+    return valasz;
+}
+function foglalte()
+{
+
+}
+function kapcsolodike()
+{
+
+}
+function mitteszel()
+{
+
+}
+
+
 
 divek_letrehozasa(24,24);
 let map = randommapgen();
