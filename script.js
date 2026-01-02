@@ -101,11 +101,26 @@ function divek_letrehozasa(x,y){
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
             div.onclick = balkatt;
-            div.classList.add("mezo")
+            div.classList.toggle("mezo")
             container.appendChild(div);
         }
     }
 }// id meg kell próbálnom beilleszteni a szinezést a generáláson bélűlre!
+function divek_szinezese(map){
+
+    for (let y = 0; y < 24; y++) {
+        for (let x = 0; x < 24; x++) {
+
+            let div = document.getElementById(`${x}_${y}`);
+            let biom = map[y][x][0];
+
+            if (biom === 0) div.classList.add('mezo');
+            if (biom === 1) div.classList.add('erdo');
+            if (biom === 2) div.classList.add('hegyseg');
+            if (biom === 3) div.classList.add('mocsar');
+        }
+    }
+}
 function randommapgen(){
     let a = biomok();
     let biomokk = keveres(a);// ez dönti el hogy melyik biomból menyi van és hol
@@ -268,5 +283,6 @@ function mitteszel()
 
 divek_letrehozasa(24,24);
 let map = randommapgen();
+divek_szinezese(map);
 let claimlista = claimlist();
 let nyersanyaglista = resourcelist();

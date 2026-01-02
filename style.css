@@ -5,15 +5,7 @@
     justify-content: center;
 }
 
-.container div{
-    background-color: #B0B0B0;
-    transition: .2s;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    border: 1px solid black;
 
-}
 .container div:hover{
     background-color: #F0A0A0;
     border-top-color: #F0C0C0;
