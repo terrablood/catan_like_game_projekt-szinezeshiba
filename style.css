@@ -4,7 +4,10 @@
     grid-template-rows: repeat(24,20px);
     justify-content: center;
 }
-
+.dobasbuttonc{
+    display: grid;
+    justify-content: center;
+}
 
 .container div:hover{
     background-color: #F0A0A0;
@@ -48,4 +51,15 @@
     border-right-color:#19412b;
     border-width: 3px;
     border-style: solid;
+}
+#dobas {
+    background-color: rgb(197, 197, 255);
+    border-top-color:rgb(141, 141, 244);
+    border-left-color:rgb(141, 141, 244);
+    border-bottom-color:rgb(55, 55, 105);
+    border-right-color:rgb(55, 55, 105);
+    border-style: solid;
+    color: rgb(19, 3, 54);
+    padding: 10px 20px;
+    border-radius: 5px;
 }

@@ -1,5 +1,5 @@
 
-
+// ez itt a map generálás
 function keveres(l){ // Fisher-Yates-Knuth shuffle
     let i=l.length;
     while(i!=0){
@@ -9,7 +9,6 @@ function keveres(l){ // Fisher-Yates-Knuth shuffle
     }
     return l;
 }
-// 24*24 = 576
 function biomok(){ 
     let a = [];
     // mező 192 -> 1
@@ -100,12 +99,11 @@ function divek_letrehozasa(x,y){
         for (let j = 0; j < y; j++) {
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
-            div.onclick = balkatt;
-            div.classList.toggle("mezo")
+            div.onclick = ellenorzo_balkatt;//ut,falu,varos,fovaros
             container.appendChild(div);
         }
     }
-}// id meg kell próbálnom beilleszteni a szinezést a generáláson bélűlre!
+}
 function divek_szinezese(map){
 
     for (let y = 0; y < 24; y++) {
@@ -122,6 +120,7 @@ function divek_szinezese(map){
     }
 }
 function randommapgen(){
+    // a map 24*24 azaz 576 mező
     let a = biomok();
     let biomokk = keveres(a);// ez dönti el hogy melyik biomból menyi van és hol
     let b = lelohelyek();
@@ -135,6 +134,7 @@ function randommapgen(){
     let f = matrixhajtogatas(biomokk,lelohelyee,kockaszamm,claimm,foglaltt)
     return f;
 }
+// claim elemek
 function claimlist()
 {
     let claims = [];
@@ -155,23 +155,23 @@ function claimkiírás(claimlista)
         console.log(elem[2]);
     }
 }
+// ezek csak segédek
 function melyikez(div){ // megszerzi egy div koordinátáit (pozícióját a mapon)
-    [sx,sy] = div.id.split(" "); // ["9", "4"]
+    console.log(div.id)
+    let [sx,sy] = div.id.split("_"); // x és y
+    
     return [parseInt(sx), parseInt(sy)];
 }
 function ezadiv(x,y){ // koordináta (pozíció) alapján megkeres egy divet
     return document.getElementById(`${x} ${y}`);
 }
-function balkatt(e){
+function ellenorzo_balkatt(e){
     let vizsgalt = e.target; 
-    console.log(vizsgalt);
-    [x, y] = melyikez(vizsgalt)
-    // a koordináták kiírása konzolba
+    let [x, y] = melyikez(vizsgalt)
     console.log(x); 
     console.log(y);
-    console.log(map[x][y]);
-    claimadd(claimlista,x,y)
 }
+// ez  a nyersanyag osztás rész
 function kockadobas()
 {
     let dobasszam = Math.floor(Math.random() * 6) + 1;
@@ -240,6 +240,7 @@ function mennyiazannyi(dobottak,map,resourcelista)
         }
     }  
 }
+// ez a struktúra lehelyezése
 function neighbouchek(x,y,r) // amikor egy települést tesz le, ellenörzi, hogy van-e claimelhető terület
 {
     let valasz = 1;
@@ -286,3 +287,8 @@ let map = randommapgen();
 divek_szinezese(map);
 let claimlista = claimlist();
 let nyersanyaglista = resourcelist();
+const button = document.getElementById("dobas");
+button.addEventListener("click", function () {
+    let dobott = kockadobas()
+    alert(dobott);
+  });
