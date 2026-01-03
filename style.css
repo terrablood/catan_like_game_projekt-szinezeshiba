@@ -63,3 +63,14 @@
     padding: 10px 20px;
     border-radius: 5px;
 }
+#claimkiir {
+    background-color: rgb(197, 197, 255);
+    border-top-color:rgb(141, 141, 244);
+    border-left-color:rgb(141, 141, 244);
+    border-bottom-color:rgb(55, 55, 105);
+    border-right-color:rgb(55, 55, 105);
+    border-style: solid;
+    color: rgb(19, 3, 54);
+    padding: 10px 20px;
+    border-radius: 5px;
+}

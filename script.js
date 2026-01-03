@@ -1,5 +1,5 @@
 
-// ez itt a map generálás
+// ez itt a map generálás -->> ezek müködnek
 function keveres(l){ // Fisher-Yates-Knuth shuffle
     let i=l.length;
     while(i!=0){
@@ -99,7 +99,7 @@ function divek_letrehozasa(x,y){
         for (let j = 0; j < y; j++) {
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
-            div.onclick = ellenorzo_balkatt;//ut,falu,varos,fovaros
+            div.onclick = fovaros;//ut,falu,varos,fovaros,ellenorzo_balkatt
             container.appendChild(div);
         }
     }
@@ -134,7 +134,7 @@ function randommapgen(){
     let f = matrixhajtogatas(biomokk,lelohelyee,kockaszamm,claimm,foglaltt)
     return f;
 }
-// claim elemek
+// claim elemek -->> mind müködik
 function claimlist()
 {
     let claims = [];
@@ -142,20 +142,26 @@ function claimlist()
 }
 function claimadd(claimlista,x,y,map)
 {
-    let chunk = [y,x];
-    console.log(y,x);
+    let chunk = [x,y];
     claimlista.push(chunk);
     //map[y][x][3] = 1
 }
 function claimkiírás(claimlista)
 {
-    for(const elem of claimlista)
+    if(claimlista.length > 0)
     {
-        console.log(elem[1]);
-        console.log(elem[2]);
+        console.log("vannak claimjeid");
+        for (const elem of claimlista) {
+            console.log(elem[0],elem[1]);
+            
+        }
+    }
+    else 
+    {
+        console.log("nincsenek climjeid");
     }
 }
-// ezek csak segédek
+// ezek csak segédek -->> ezek müködnek
 function melyikez(div){ // megszerzi egy div koordinátáit (pozícióját a mapon)
     console.log(div.id)
     let [sx,sy] = div.id.split("_"); // x és y
@@ -167,7 +173,7 @@ function ezadiv(x,y){ // koordináta (pozíció) alapján megkeres egy divet
 }
 function ellenorzo_balkatt(e){
     let vizsgalt = e.target; 
-    let [x, y] = melyikez(vizsgalt)
+    let [y, x] = melyikez(vizsgalt)
     console.log(x); 
     console.log(y);
 }
@@ -241,6 +247,108 @@ function mennyiazannyi(dobottak,map,resourcelista)
     }  
 }
 // ez a struktúra lehelyezése
+function ut(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    console.log(x); 
+    console.log(y);
+    claimadd(claimlista,x,y,map)
+}
+function falu(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    console.log(x); 
+    console.log(y);
+    if(x==0||x==23||y==0||y==23)
+    {
+            console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+            alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+    }
+    else
+    {
+        claimadd(claimlista,x-1,y-1,map)//1
+        claimadd(claimlista,x,y-1,map)//2
+        claimadd(claimlista,x+1,y-1,map)//3
+        claimadd(claimlista,x-1,y,map)//4
+        claimadd(claimlista,x,y,map)//5
+        claimadd(claimlista,x+1,y,map)//6
+        claimadd(claimlista,x-1,y+1,map)//7
+        claimadd(claimlista,x,y+1,map)//8
+        claimadd(claimlista,x+1,y+1,map)//9
+        
+    }
+}
+function varos(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    console.log(x); 
+    console.log(y);
+    if(x==0||x==23||y==0||y==23)
+    {
+            console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+            alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+    }
+    else
+    {
+        claimadd(claimlista,x-1,y-1,map)//1
+        claimadd(claimlista,x,y-1,map)//2
+        claimadd(claimlista,x+1,y-1,map)//3
+        claimadd(claimlista,x-1,y,map)//4
+        claimadd(claimlista,x,y,map)//5
+        claimadd(claimlista,x+1,y,map)//6
+        claimadd(claimlista,x-1,y+1,map)//7
+        claimadd(claimlista,x,y+1,map)//8
+        claimadd(claimlista,x+1,y+1,map)//9
+        
+    }
+}
+function fovaros(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    console.log(x); 
+    console.log(y);
+    if(x==0||x==23||x==1||x==22||y==1||y==22||y==0||y==23)
+    {
+            console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+            alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
+    }
+    else
+    {
+        claimadd(claimlista,x-2,y-2,map)//1
+        claimadd(claimlista,x-1,y-2,map)//2
+        claimadd(claimlista,x,y-2,map)//3
+        claimadd(claimlista,x+1,y-2,map)//4
+        claimadd(claimlista,x+2,y-2,map)//5
+
+        claimadd(claimlista,x-2,y-1,map)//1
+        claimadd(claimlista,x-1,y-1,map)//2
+        claimadd(claimlista,x,y-1,map)//3
+        claimadd(claimlista,x+1,y-1,map)//4
+        claimadd(claimlista,x+2,y-1,map)//5
+
+        claimadd(claimlista,x-2,y,map)//1
+        claimadd(claimlista,x-1,y,map)//2
+        claimadd(claimlista,x,y,map)//3
+        claimadd(claimlista,x+1,y,map)//4
+        claimadd(claimlista,x+2,y,map)//5
+
+        claimadd(claimlista,x-2,y+1,map)//1
+        claimadd(claimlista,x-1,y+1,map)//2
+        claimadd(claimlista,x,y+1,map)//3
+        claimadd(claimlista,x+1,y+1,map)//4
+        claimadd(claimlista,x+2,y+1,map)//5
+
+        claimadd(claimlista,x-2,y+2,map)//1
+        claimadd(claimlista,x-1,y+2,map)//2
+        claimadd(claimlista,x,y+2,map)//3
+        claimadd(claimlista,x+1,y+2,map)//4
+        claimadd(claimlista,x+2,y+2,map)//5
+    }
+}
 function neighbouchek(x,y,r) // amikor egy települést tesz le, ellenörzi, hogy van-e claimelhető terület
 {
     let valasz = 1;
@@ -291,4 +399,8 @@ const button = document.getElementById("dobas");
 button.addEventListener("click", function () {
     let dobott = kockadobas()
     alert(dobott);
-  });
+});
+const button2 = document.getElementById("claimkiir");
+button2.addEventListener("click", function () {
+    claimkiírás(claimlista);
+});
