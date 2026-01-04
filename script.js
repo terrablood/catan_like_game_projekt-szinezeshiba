@@ -99,7 +99,7 @@ function divek_letrehozasa(x,y){
         for (let j = 0; j < y; j++) {
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
-            div.onclick = fovaros;//ut,falu,varos,fovaros,ellenorzo_balkatt
+            div.onclick = ut;//ut,falu,varos,fovaros,ellenorzo_balkatt
             container.appendChild(div);
         }
     }
@@ -253,12 +253,31 @@ function ut(e)
     let [y, x] = melyikez(vizsgalt)
     console.log(x); 
     console.log(y);
-    claimadd(claimlista,x,y,map)
+    let szab = foglalte(x,y);
+    if(szab == 0)
+    {
+        let s = kapcsolodike(x,y);
+        if(s == 1)
+        {
+            claimadd(claimlista,x,y,map)
+            map[y][x][4] = 1;
+            e.target.innerHTML='U';
+        }
+        else
+        {
+            alert("nincs a közelben territórium amihez kapcsolódhatna");
+        }
+    }
+    else
+    {
+        alert("ez már foglalt");
+    }
 }
 function falu(e)
 {
     let vizsgalt = e.target; 
     let [y, x] = melyikez(vizsgalt)
+    let szab = foglalte(x,y);
     console.log(x); 
     console.log(y);
     if(x==0||x==23||y==0||y==23)
@@ -266,17 +285,31 @@ function falu(e)
             console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
             alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
     }
+    else if(szab != 0)
+    {
+        alert("ez már foglalt");
+    }
     else
     {
-        claimadd(claimlista,x-1,y-1,map)//1
-        claimadd(claimlista,x,y-1,map)//2
-        claimadd(claimlista,x+1,y-1,map)//3
-        claimadd(claimlista,x-1,y,map)//4
-        claimadd(claimlista,x,y,map)//5
-        claimadd(claimlista,x+1,y,map)//6
-        claimadd(claimlista,x-1,y+1,map)//7
-        claimadd(claimlista,x,y+1,map)//8
-        claimadd(claimlista,x+1,y+1,map)//9
+        let s = kapcsolodike(x,y);
+        if(s == 1)
+        {
+            claimadd(claimlista,x-1,y-1,map)//1
+            claimadd(claimlista,x,y-1,map)//2
+            claimadd(claimlista,x+1,y-1,map)//3
+            claimadd(claimlista,x-1,y,map)//4
+            claimadd(claimlista,x,y,map)//5
+            claimadd(claimlista,x+1,y,map)//6
+            claimadd(claimlista,x-1,y+1,map)//7
+            claimadd(claimlista,x,y+1,map)//8
+            claimadd(claimlista,x+1,y+1,map)//9
+            map[y][x][4] = 1;
+            e.target.innerHTML='F';
+        }
+        else
+        {
+            alert("nincs a közelben territórium amihez kapcsolódhatna");
+        }
         
     }
 }
@@ -284,6 +317,7 @@ function varos(e)
 {
     let vizsgalt = e.target; 
     let [y, x] = melyikez(vizsgalt)
+    let szab = foglalte(x,y);
     console.log(x); 
     console.log(y);
     if(x==0||x==23||y==0||y==23)
@@ -291,17 +325,31 @@ function varos(e)
             console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
             alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
     }
+    else if(szab != 0)
+    {
+        alert("ez már foglalt");
+    }
     else
     {
-        claimadd(claimlista,x-1,y-1,map)//1
-        claimadd(claimlista,x,y-1,map)//2
-        claimadd(claimlista,x+1,y-1,map)//3
-        claimadd(claimlista,x-1,y,map)//4
-        claimadd(claimlista,x,y,map)//5
-        claimadd(claimlista,x+1,y,map)//6
-        claimadd(claimlista,x-1,y+1,map)//7
-        claimadd(claimlista,x,y+1,map)//8
-        claimadd(claimlista,x+1,y+1,map)//9
+        let s = kapcsolodike(x,y);
+        if(s == 1)
+        {
+            claimadd(claimlista,x-1,y-1,map)//1
+            claimadd(claimlista,x,y-1,map)//2
+            claimadd(claimlista,x+1,y-1,map)//3
+            claimadd(claimlista,x-1,y,map)//4
+            claimadd(claimlista,x,y,map)//5
+            claimadd(claimlista,x+1,y,map)//6
+            claimadd(claimlista,x-1,y+1,map)//7
+            claimadd(claimlista,x,y+1,map)//8
+            claimadd(claimlista,x+1,y+1,map)//9
+            map[y][x][4] = 1;
+            e.target.innerHTML='V';
+        }
+        else
+        {
+            alert("nincs a közelben territórium amihez kapcsolódhatna");
+        }
         
     }
 }
@@ -347,46 +395,58 @@ function fovaros(e)
         claimadd(claimlista,x,y+2,map)//3
         claimadd(claimlista,x+1,y+2,map)//4
         claimadd(claimlista,x+2,y+2,map)//5
+        map[y][x][4] = 1;
+        e.target.innerHTML='FV';
     }
 }
-function neighbouchek(x,y,r) // amikor egy települést tesz le, ellenörzi, hogy van-e claimelhető terület
+function foglalte(x,y)
 {
-    let valasz = 1;
-// 1*1 út
-// 3*3 falu/város
-// 5*5 főváros
-    if(r==3)
+    let a = 0;
+    if(map[y][x][4] > 0)
     {
-        if(x==0||x==24||y==0||y==24)
-        {
-            valasz = 0
-        }
-        // y != 0 V y != 24
-        // x != 0 V x != 24
+        a = map[y][x][4];
     }
-    else if(r==5)
+    return a;
+}
+function kapcsolodike(x,y)
+{
+    let valasz = 0;
+    if(map[y-1][x-1][3] > 0)//1
     {
-        if(x==0||x==1||x==23||x==24||y==0||y==1||y==23||y==24)
-        {
-            valasz = 0
-        }
-        // y != 0,1 V y != 23,24
-        // x != 0,1 V x != 23,24
+        valasz = 1;
+    }
+    else if(map[y-1][x][3] > 0)//2
+    {
+        valasz = 1;
+    }
+    else if(map[y-1][x+1][3] > 0)//3
+    {
+        valasz = 1;
+    }
+    else if(map[y][x-1][3] > 0)//4
+    {
+        valasz = 1;
+    }
+    
+    else if(map[y][x+1][3] > 0)//6
+    {
+        valasz = 1;
+    }
+    else if(map[y+1][x-1][3] > 0)//7
+    {
+        valasz = 1;
+    }
+    else if(map[y+1][x][3] > 0)//8
+    {
+        valasz = 1;
+    }
+    else if(map[y+1][x+1][3] > 0)//9
+    {
+        valasz = 1;
     }
     return valasz;
 }
-function foglalte()
-{
 
-}
-function kapcsolodike()
-{
-
-}
-function mitteszel()
-{
-
-}
 
 
 
