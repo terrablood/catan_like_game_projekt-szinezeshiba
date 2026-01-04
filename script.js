@@ -99,7 +99,7 @@ function divek_letrehozasa(x,y){
         for (let j = 0; j < y; j++) {
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
-            div.onclick = ut;//ut,falu,varos,fovaros,ellenorzo_balkatt
+            div.onclick = fovaros;//ut,falu,varos,fovaros,ellenorzo_balkatt
             container.appendChild(div);
         }
     }
@@ -186,11 +186,12 @@ function kockadobas()
 function dobaskereses(claimlist,map,dobas)
 {
     let lehetsegesek = [];
-    for (let i = 0; i < 24; i++) {
-        for (let f = 0; f < 24; f++) {
-            if(map[i][f][2] == dobas)
+    for (let y = 0; y < 23; y++) {
+        for (let x = 0; x < 23; x++) {
+            if(map[y][x][2] == dobas)
             {
-                let koordinatak = [i,f];
+                let koordinatak = [y,x];
+                koordinatak.push(map[y][x][0]);
                 lehetsegesek.push(koordinatak);
             }
         }
@@ -198,16 +199,22 @@ function dobaskereses(claimlist,map,dobas)
     let dobottak = [];
     for (let k = 0; k < claimlist.length; k++) {
         for (let l = 0; l < lehetsegesek.length; l++) {
-            if(claimlist[k] == lehetsegesek[l])
+            if(claimlist[k][0] == lehetsegesek[l][0] && claimlist[k][1] == lehetsegesek[l][1])
             {
-                let kello = claimlist[k]
-                dobottak.push(kello)
+                console.log(claimlist[k][0],claimlist[k][1]);
+                let kello = claimlist[k];
+                kello.push(lehetsegesek[l][2]);
+                dobottak.push(kello);
             }
         }
     }
+    if(dobottak.length == 0)
+    {
+        alert("nincsenek claimjeid ezért nem kapsz semmit");
+    }
     return dobottak;
 }
-function melyik_nyersanyag_add(biom_, resourcelista)
+function melyik_nyersanyag_add(biom_,resourcelista)
 {
     
     if(biom_ == 0)//mező
@@ -245,6 +252,19 @@ function mennyiazannyi(dobottak,map,resourcelista)
             }
         }
     }  
+}
+function nyersanyagosztas(dobott)
+{
+    let alap = dobaskereses(claimlista,map,dobott);
+    for (const elem of alap) 
+    {
+        melyik_nyersanyag_add(elem[2],nyersanyaglista);
+        console.log(elem[2]);
+    }
+    console.log("széna:",nyersanyaglista[0]);
+    console.log("fa:",nyersanyaglista[1]);
+    console.log("kö:",nyersanyaglista[2]);
+    console.log("rost:",nyersanyaglista[3]);
 }
 // ez a struktúra lehelyezése
 function ut(e)
@@ -458,6 +478,7 @@ let nyersanyaglista = resourcelist();
 const button = document.getElementById("dobas");
 button.addEventListener("click", function () {
     let dobott = kockadobas()
+    nyersanyagosztas(dobott)
     alert(dobott);
 });
 const button2 = document.getElementById("claimkiir");
