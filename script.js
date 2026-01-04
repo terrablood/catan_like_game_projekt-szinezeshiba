@@ -40,10 +40,10 @@ function biomok(){
 }
 function lelohelyek(){
     let a = [];
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 68; i++) {
         a.push(1);
     }
-    for (let i = 0; i < 558; i++) {
+    for (let i = 0; i < 508; i++) {
         a.push(0);
     }
 
@@ -99,7 +99,7 @@ function divek_letrehozasa(x,y){
         for (let j = 0; j < y; j++) {
             let div = document.createElement("div");
             div.id = `${i}_${j}`;
-            div.onclick = fovaros;//ut,falu,varos,fovaros,ellenorzo_balkatt
+            div.onclick = expedicio;//ut,falu,varos,fovaros,ellenorzo_balkatt,expedicio
             container.appendChild(div);
         }
     }
@@ -235,9 +235,19 @@ function melyik_nyersanyag_add(biom_,resourcelista)
     }
     
 }
+function lelohelye(x,y,map)
+{
+    let v = 0
+    if(map[y][x][1] == 1)
+    {
+        v = 1;
+        console.log("teli találat");
+    }
+    return v;
+}
 function resourcelist()
 {
-    let resourcelista = [0,0,0,0]
+    let resourcelista = [0,0,0,0,0,0]
     return resourcelista;
 }
 function nyersanyagosztas(dobott)
@@ -252,6 +262,9 @@ function nyersanyagosztas(dobott)
     console.log("fa:",nyersanyaglista[1]);
     console.log("kö:",nyersanyaglista[2]);
     console.log("rost:",nyersanyaglista[3]);
+    let ores = (banyaim*2);
+    nyersanyaglista[4] += ores;
+    console.log("fém",nyersanyaglista[4]);
 }
 // ez a struktúra lehelyezése -->> félkészek és nem lehet játék közben váltani
 function ut(e)
@@ -312,6 +325,7 @@ function falu(e)
             claimadd(claimlista,x+1,y+1,map)//9
             map[y][x][4] = 1;
             e.target.innerHTML='F';
+            nyersanyaglista[5] += 5;
         }
         else
         {
@@ -352,6 +366,7 @@ function varos(e)
             claimadd(claimlista,x+1,y+1,map)//9
             map[y][x][4] = 1;
             e.target.innerHTML='V';
+            nyersanyaglista[5] += 10;
         }
         else
         {
@@ -404,6 +419,7 @@ function fovaros(e)
         claimadd(claimlista,x+2,y+2,map)//5
         map[y][x][4] = 1;
         e.target.innerHTML='FV';
+        nyersanyaglista[5] += 25;
     }
 }
 function foglalte(x,y)
@@ -414,6 +430,99 @@ function foglalte(x,y)
         a = map[y][x][4];
     }
     return a;
+}
+function expedicio(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    console.log(x); 
+    console.log(y);
+    if(x==0||x==23||y==0||y==23)
+    {
+            console.log("nincs elég felfedezhető terület");
+            alert("nincs elég felfedezhető terület");
+    }
+    else
+    {
+     let d1 = lelohelye(x-1,y-1,map)
+        if(d1 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d2 = lelohelye(x-1,y-1,map)
+        if(d2 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d3 = lelohelye(x-1,y-1,map)
+        if(d3 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d4 = lelohelye(x-1,y-1,map)
+        if(d4 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d5 = lelohelye(x-1,y-1,map)
+        if(d5 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d6 = lelohelye(x-1,y-1,map)
+        if(d6 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d7 = lelohelye(x-1,y-1,map)
+        if(d7 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d8 = lelohelye(x-1,y-1,map)
+        if(d8 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }
+        let d9 = lelohelye(x-1,y-1,map)
+        if(d9 == 1)
+        {
+            e.target.innerHTML='M';
+            console.log("teli találat");
+        }       
+    }
+}
+function mine(e)
+{
+    let vizsgalt = e.target; 
+    let [y, x] = melyikez(vizsgalt)
+    let szab = foglalte(x,y);
+    console.log(x); 
+    console.log(y);
+    if(x==0||x==23||y==0||y==23)
+    {
+            console.log("nincs elég felfedezhető terület");
+            alert("nincs elég felfedezhető terület");
+    }
+    else if(szab != 0)
+    {
+        alert("ez már foglalt");
+    }
+    else 
+    {
+        map[y][x][4] = 1;
+        e.target.innerHTML='M';
+        banyaim+=1;
+        console.log("bányák:",banyaim);
+    }
 }
 function kapcsolodike(x,y)
 {
@@ -462,11 +571,13 @@ let map = randommapgen();
 divek_szinezese(map);
 let claimlista = claimlist();
 let nyersanyaglista = resourcelist();
+let banyaim = 0;
 const button = document.getElementById("dobas");
 button.addEventListener("click", function () {
     let dobott = kockadobas()
     nyersanyagosztas(dobott)
     alert(dobott);
+    
 });
 const button2 = document.getElementById("claimkiir");
 button2.addEventListener("click", function () {
