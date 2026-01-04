@@ -177,7 +177,7 @@ function ellenorzo_balkatt(e){
     console.log(x); 
     console.log(y);
 }
-// ez  a nyersanyag osztás rész
+// ez  a nyersanyag osztás rész -->> müködnek
 function kockadobas()
 {
     let dobasszam = Math.floor(Math.random() * 6) + 1;
@@ -240,19 +240,6 @@ function resourcelist()
     let resourcelista = [0,0,0,0]
     return resourcelista;
 }
-function mennyiazannyi(dobottak,map,resourcelista)
-{
-    for (let i = 0; i < dobottak.length; i++) {
-        for (let y = 0; y < 24; y++) {
-            for (let x = 0; x < 24; x++) {
-                if(map[y][x] == dobottak[i])
-                {
-                    melyik_nyersanyag_add(map[y][x][3],resourcelista);
-                }
-            }
-        }
-    }  
-}
 function nyersanyagosztas(dobott)
 {
     let alap = dobaskereses(claimlista,map,dobott);
@@ -266,7 +253,7 @@ function nyersanyagosztas(dobott)
     console.log("kö:",nyersanyaglista[2]);
     console.log("rost:",nyersanyaglista[3]);
 }
-// ez a struktúra lehelyezése
+// ez a struktúra lehelyezése -->> félkészek és nem lehet játék közben váltani
 function ut(e)
 {
     let vizsgalt = e.target; 
