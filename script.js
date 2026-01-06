@@ -269,111 +269,151 @@ function nyersanyagosztas(dobott)
 // ez a struktúra lehelyezése -->> félkészek és nem lehet játék közben váltani
 function ut(e)
 {
-    let vizsgalt = e.target; 
-    let [y, x] = melyikez(vizsgalt)
-    console.log(x); 
-    console.log(y);
-    let szab = foglalte(x,y);
-    if(szab == 0)
+    if(nyersanyaglista[1] > 5,nyersanyaglista[2] > 3)
     {
-        let s = kapcsolodike(x,y);
-        if(s == 1)
+        let vizsgalt = e.target; 
+        let [y, x] = melyikez(vizsgalt)
+        console.log(x); 
+        console.log(y);
+        let szab = foglalte(x,y);
+        if(szab == 0)
         {
-            claimadd(claimlista,x,y,map)
-            map[y][x][4] = 1;
-            e.target.innerHTML='U';
+           let s = kapcsolodike(x,y);
+            if(s == 1)
+            {
+                claimadd(claimlista,x,y,map)
+                map[y][x][4] = 1;
+                e.target.innerHTML='U';
+            }
+            else
+            {
+                alert("nincs a közelben territórium amihez kapcsolódhatna");
+            }
         }
         else
         {
-            alert("nincs a közelben territórium amihez kapcsolódhatna");
+            alert("ez már foglalt");
         }
     }
     else
     {
-        alert("ez már foglalt");
+        alert("nincs elég nyersanyagod az építkezéshez")
+        console.log("széna:",nyersanyaglista[0]);
+        console.log("fa:",nyersanyaglista[1]);
+        console.log("kö:",nyersanyaglista[2]);
+        console.log("rost:",nyersanyaglista[3]);
+        console.log("fém",nyersanyaglista[4]);
     }
+    
 }
 function falu(e)
 {
-    let vizsgalt = e.target; 
-    let [y, x] = melyikez(vizsgalt)
-    let szab = foglalte(x,y);
-    console.log(x); 
-    console.log(y);
-    if(x==0||x==23||y==0||y==23)
+    if(nyersanyaglista[1] > 15,nyersanyaglista[2] > 10,nyersanyaglista[0] >20,nyersanyaglista[3] > 10)
     {
+        let vizsgalt = e.target; 
+        let [y, x] = melyikez(vizsgalt)
+        let szab = foglalte(x,y);
+        console.log(x); 
+        console.log(y);
+        if(x==0||x==23||y==0||y==23)
+        {
             console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
             alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
-    }
-    else if(szab != 0)
-    {
-        alert("ez már foglalt");
-    }
-    else
-    {
-        let s = kapcsolodike(x,y);
-        if(s == 1)
+        }
+        else if(szab != 0)
         {
-            claimadd(claimlista,x-1,y-1,map)//1
-            claimadd(claimlista,x,y-1,map)//2
-            claimadd(claimlista,x+1,y-1,map)//3
-            claimadd(claimlista,x-1,y,map)//4
-            claimadd(claimlista,x,y,map)//5
-            claimadd(claimlista,x+1,y,map)//6
-            claimadd(claimlista,x-1,y+1,map)//7
-            claimadd(claimlista,x,y+1,map)//8
-            claimadd(claimlista,x+1,y+1,map)//9
-            map[y][x][4] = 1;
-            e.target.innerHTML='F';
-            nyersanyaglista[5] += 5;
+            alert("ez már foglalt");
         }
         else
         {
-            alert("nincs a közelben territórium amihez kapcsolódhatna");
-        }
+            let s = kapcsolodike(x,y);
+            if(s == 1)
+            {
+                claimadd(claimlista,x-1,y-1,map)//1
+                claimadd(claimlista,x,y-1,map)//2
+                claimadd(claimlista,x+1,y-1,map)//3
+                claimadd(claimlista,x-1,y,map)//4
+                claimadd(claimlista,x,y,map)//5
+                claimadd(claimlista,x+1,y,map)//6
+                claimadd(claimlista,x-1,y+1,map)//7
+                claimadd(claimlista,x,y+1,map)//8
+                claimadd(claimlista,x+1,y+1,map)//9
+                map[y][x][4] = 1;
+                e.target.innerHTML='F';
+                nyersanyaglista[5] += 5;
+                
+            }
+            else
+            {
+                alert("nincs a közelben territórium amihez kapcsolódhatna");
+            }
         
+        }
     }
+    else
+    {
+        alert("nincs elég nyersanyagod az építkezéshez")
+        console.log("széna:",nyersanyaglista[0]);
+        console.log("fa:",nyersanyaglista[1]);
+        console.log("kö:",nyersanyaglista[2]);
+        console.log("rost:",nyersanyaglista[3]);
+        console.log("fém",nyersanyaglista[4]);
+    }
+    
 }
 function varos(e)
 {
-    let vizsgalt = e.target; 
-    let [y, x] = melyikez(vizsgalt)
-    let szab = foglalte(x,y);
-    console.log(x); 
-    console.log(y);
-    if(x==0||x==23||y==0||y==23)
+    if(nyersanyaglista[1] > 30,nyersanyaglista[2] > 40,nyersanyaglista[0] >10,nyersanyaglista[3] > 20,nyersanyaglista[4] > 6)
     {
+        let vizsgalt = e.target; 
+        let [y, x] = melyikez(vizsgalt)
+        let szab = foglalte(x,y);
+        console.log(x); 
+        console.log(y);
+        if(x==0||x==23||y==0||y==23)
+        {
             console.log("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
             alert("nincs elég hely a territórumnak szóval nem tehetsz id semmit! bocs");
-    }
-    else if(szab != 0)
-    {
-        alert("ez már foglalt");
-    }
-    else
-    {
-        let s = kapcsolodike(x,y);
-        if(s == 1)
+        }
+        else if(szab != 0)
         {
-            claimadd(claimlista,x-1,y-1,map)//1
-            claimadd(claimlista,x,y-1,map)//2
-            claimadd(claimlista,x+1,y-1,map)//3
-            claimadd(claimlista,x-1,y,map)//4
-            claimadd(claimlista,x,y,map)//5
-            claimadd(claimlista,x+1,y,map)//6
-            claimadd(claimlista,x-1,y+1,map)//7
-            claimadd(claimlista,x,y+1,map)//8
-            claimadd(claimlista,x+1,y+1,map)//9
-            map[y][x][4] = 1;
-            e.target.innerHTML='V';
-            nyersanyaglista[5] += 10;
+            alert("ez már foglalt");
         }
         else
         {
-            alert("nincs a közelben territórium amihez kapcsolódhatna");
-        }
+            let s = kapcsolodike(x,y);
+            if(s == 1)
+            {
+                claimadd(claimlista,x-1,y-1,map)//1
+                claimadd(claimlista,x,y-1,map)//2
+                claimadd(claimlista,x+1,y-1,map)//3
+                claimadd(claimlista,x-1,y,map)//4
+                claimadd(claimlista,x,y,map)//5
+                claimadd(claimlista,x+1,y,map)//6
+                claimadd(claimlista,x-1,y+1,map)//7
+                claimadd(claimlista,x,y+1,map)//8
+                claimadd(claimlista,x+1,y+1,map)//9
+                map[y][x][4] = 1;
+                e.target.innerHTML='V';
+                nyersanyaglista[5] += 10;
+            }
+            else
+            {
+               alert("nincs a közelben territórium amihez kapcsolódhatna");
+            }
         
+        }
     }
+    else
+    {
+        alert("nincs elég nyersanyagod az építkezéshez")
+        console.log("széna:",nyersanyaglista[0]);
+        console.log("fa:",nyersanyaglista[1]);
+        console.log("kö:",nyersanyaglista[2]);
+        console.log("rost:",nyersanyaglista[3]);
+        console.log("fém",nyersanyaglista[4]);
+    }
+    
 }
 function fovaros(e)
 {
@@ -433,96 +473,122 @@ function foglalte(x,y)
 }
 function expedicio(e)
 {
-    let vizsgalt = e.target; 
-    let [y, x] = melyikez(vizsgalt)
-    console.log(x); 
-    console.log(y);
-    if(x==0||x==23||y==0||y==23)
+    if(nyersanyaglista[1] > 15,nyersanyaglista[0] >20,nyersanyaglista[3] > 20)
     {
+        let vizsgalt = e.target; 
+        let [y, x] = melyikez(vizsgalt)
+        console.log(x); 
+        console.log(y);
+        if(x==0||x==23||y==0||y==23)
+        {
             console.log("nincs elég felfedezhető terület");
             alert("nincs elég felfedezhető terület");
+        }
+        else
+        {
+            let d1 = lelohelye(x-1,y-1,map)
+            if(d1 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d2 = lelohelye(x-1,y-1,map)
+            if(d2 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d3 = lelohelye(x-1,y-1,map)
+            f(d3 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d4 = lelohelye(x-1,y-1,map)
+            if(d4 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d5 = lelohelye(x-1,y-1,map)
+            if(d5 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d6 = lelohelye(x-1,y-1,map)
+            if(d6 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d7 = lelohelye(x-1,y-1,map)
+            if(d7 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d8 = lelohelye(x-1,y-1,map)
+            if(d8 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }
+            let d9 = lelohelye(x-1,y-1,map)
+            if(d9 == 1)
+            {
+                e.target.innerHTML='M';
+                console.log("teli találat");
+            }          
+        }
     }
     else
     {
-     let d1 = lelohelye(x-1,y-1,map)
-        if(d1 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d2 = lelohelye(x-1,y-1,map)
-        if(d2 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d3 = lelohelye(x-1,y-1,map)
-        if(d3 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d4 = lelohelye(x-1,y-1,map)
-        if(d4 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d5 = lelohelye(x-1,y-1,map)
-        if(d5 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d6 = lelohelye(x-1,y-1,map)
-        if(d6 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d7 = lelohelye(x-1,y-1,map)
-        if(d7 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d8 = lelohelye(x-1,y-1,map)
-        if(d8 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }
-        let d9 = lelohelye(x-1,y-1,map)
-        if(d9 == 1)
-        {
-            e.target.innerHTML='M';
-            console.log("teli találat");
-        }       
+        alert("nincs elég nyersanyagod az építkezéshez")
+        console.log("széna:",nyersanyaglista[0]);
+        console.log("fa:",nyersanyaglista[1]);
+        console.log("kö:",nyersanyaglista[2]);
+        console.log("rost:",nyersanyaglista[3]);
+        console.log("fém",nyersanyaglista[4]);
     }
+    
 }
 function mine(e)
 {
-    let vizsgalt = e.target; 
-    let [y, x] = melyikez(vizsgalt)
-    let szab = foglalte(x,y);
-    console.log(x); 
-    console.log(y);
-    if(x==0||x==23||y==0||y==23)
+    if(nyersanyaglista[1] > 30,nyersanyaglista[2] > 10,nyersanyaglista[0] >10,nyersanyaglista[3] > 15)
     {
+        let vizsgalt = e.target; 
+        let [y, x] = melyikez(vizsgalt)
+        let szab = foglalte(x,y);
+        console.log(x); 
+        console.log(y);
+        if(x==0||x==23||y==0||y==23)
+        {
             console.log("nincs elég felfedezhető terület");
             alert("nincs elég felfedezhető terület");
+        }
+        else if(szab != 0)
+        {
+            lert("ez már foglalt");
+        }
+        else 
+        {
+            map[y][x][4] = 1;
+            e.target.innerHTML='M';
+            banyaim+=1;
+            console.log("bányák:",banyaim);
+        }
     }
-    else if(szab != 0)
+    else
     {
-        alert("ez már foglalt");
+        alert("nincs elég nyersanyagod az építkezéshez")
+        console.log("széna:",nyersanyaglista[0]);
+        console.log("fa:",nyersanyaglista[1]);
+        console.log("kö:",nyersanyaglista[2]);
+        console.log("rost:",nyersanyaglista[3]);
+        console.log("fém",nyersanyaglista[4]);
     }
-    else 
-    {
-        map[y][x][4] = 1;
-        e.target.innerHTML='M';
-        banyaim+=1;
-        console.log("bányák:",banyaim);
-    }
+    
 }
 function kapcsolodike(x,y)
 {
